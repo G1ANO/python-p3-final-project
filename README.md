@@ -1,78 +1,158 @@
-# Phase 3 Project: CLI
+# Government Budget Allocation CLI
 
-## Learning Goals
+A command-line interface for allocating government budgets to counties using different allocation methods.
 
-- Configure environments with project-specific parameters using Pipenv.
-- Import and use external libraries.
-- Use SQLAlchemy ORM and Alembic to create a database schema and update it as you
-  continue to build your CLI.
-- Use SQLAlchemy ORM to join multiple tables to each other using one-to-one,
-  one-to-many, many-to-many relationships.
-- Use `list`s, `dict`s, and `tuple`s in appropriate contexts.
-- Exercise best practices in CLI design.
+It demonstrates advanced Python skills including SQLAlchemy ORM, database migrations with Alembic, Click framework for CLI development, and object-oriented programming principles. The application solves the real-world problem of government budget allocation to counties using three different allocation methods.
 
-***
+# Allocation Methods
+1. Equal Allocation: Distributes budget equally among all counties
+2. GDP Per Capita Based: Allocates more funding to counties with lower GDP per capita
+3. Project-Based: Allocates funding based on project needs scores (1-10 scale)
 
-## Key Vocab
+# Functionality
+- County management (add, list, delete)
+- Budget creation and management
+- Simple allocation
+- Database setup with sample data
+- CLI interface
 
-- **Command Line**: a text-based interface that is built into your computer's
-operating system. It allows you to access the files and applications on your
-computer manually or through scripts.
-- **Terminal**: the application in Mac OS that allows you to access the command
-line.
-- **Command Shell/Powershell**: the applications in Windows that allow you to access
-the command line.
-- **Command-Line Interface (CLI)**: a text-based interface used to run programs,
-manage files and interact with objects in memory. As the name suggests, it is
-run from the command line.
+# Database Schema
 
-***
+The application uses SQLAlchemy ORM with three related tables:
 
-## Instructions
+- Counties: Store county information (population, economic output, project score)
+- Budgets: Store budget information and allocation methods
+- Allocations: Link budgets to counties with allocation amounts
 
-Welcome to the end of Phase 3! You've learned about a lot in this unit:
+# Prerequisites
+- Python 3.11+
+- pip package manager
 
-- Python fundamentals.
-- Data structures (and more recently, algorithms).
-- Object-oriented programming.
-- Object inheritance.
-- Class attributes and methods.
-- Configuring applications.
-- SQL fundamentals.
-- Table relations in SQL.
-- Object-relational mapping with Python.
-- Object-relational mapping with SQLAlchemy.
-- Building CLIs.
+# Installation and commands
 
-In this project, we're going to use these skills to create a CLI. We want you to
-display knowledge of as much from Phase 3 as you can- you won't be able to fit
-everything in, but we'll expect to see:
+1. Clone or download the project
 
-- A CLI application that solves a real-world problem and adheres to best
-  practices.
-- A database created and modified with SQLAlchemy ORM with 3+ related tables.
-- A well-maintained virtual environment using Pipenv.
-- Proper package structure in your application.
-- Use of `list`s, `dict`s, and `tuple`s.
+2. Set up virtual environment
 
-***
+   python -m venv venv
 
-## Tips and Tricks?
+3. Install dependencies
 
-- Think about your database schema before you begin- migrations are a pain!
-- Keep your Python objects, SQLAlchemy objects, and CLI script in separate
-  modules.
-- If you get stuck trying to accomplish a specific task, check online to see if
-  there's a Python library that will make it easier.
-- Consider using [Click][click] or [Fire][fire] to take care of basic CLI tasks
-  for you.
+   pip install sqlalchemy alembic click
 
-***
+4. Initialize the database
 
-## Resources
+   python cli.py init
 
-- [Click documentation][click]
-- [The Python Fire Guide][fire]
 
-[click]: https://click.palletsprojects.com/en/8.1.x/
-[fire]: https://google.github.io/python-fire/guide/
+# Basic useful commands
+
+## Database Initialization
+
+# Initialize database with tables and sample data
+python cli.py init
+
+# Check database status
+python cli.py status
+
+## County Management
+# List all counties
+python cli.py county list
+
+# Add a new county
+python cli.py county add
+
+# Delete a county
+python cli.py county delete 1
+
+
+## Budget Management
+
+# Create a new budget allocation
+python cli.py budget create
+
+# List all budgets
+python cli.py budget list
+
+# Show budget details
+python cli.py budget show 1
+
+# Compare allocation methods
+python cli.py budget compare --amount 1000000
+
+
+## Workflow
+
+1. Initialize the system
+
+   python cli.py init
+   
+2. View available counties
+
+   python cli.py county list --sort-by gdp
+   
+3. Create a budget allocation
+   
+   python cli.py budget create
+
+   Then follow prompts to enter budget details
+
+4. View allocation results
+
+   python cli.py budget show 1
+
+## Project Structure
+
+python-p3-final-project/
+├── cli.py                          # Main CLI entry point
+├── lib/
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── base.py                 # Database configuration
+│   │   ├── county.py               # County model
+│   │   ├── budget.py               # Budget model
+│   │   └── allocation.py           # Allocation model
+│   ├── helpers/
+│   │   ├── __init__.py
+│   │   ├── allocation_methods.py   # Allocation algorithms
+│   │   ├── db_operations.py        # Database operations
+│   │   └── db_init.py             # Database initialization
+│   └── cli/
+│       ├── __init__.py
+│       └── main.py                 # CLI commands and interface
+├── alembic/                        # Database migrations
+├── Pipfile                         # Dependencies
+└── README.md                       # Use instructions
+
+
+# Allocation Algorithms
+
+1. Equal Allocation
+
+   allocation_per_county = total_budget / number_of_counties
+
+2. GDP Per Capita Allocation
+ # Inverse relationship: lower GDP per capita = higher allocation
+   weight = (max_gdp - county_gdp_per_capita + min_gdp)
+   allocation = (weight / total_weights) * total_budget
+
+3. Project-Based Allocation
+# Direct relationship: higher project score = higher allocation
+   allocation = (county_project_score / total_project_scores) * total_budget
+
+# Database Relationships
+
+- One-to-Many: Budget → Allocations
+- Many-to-One: Allocation → County
+- Many-to-Many: Budget ↔ County (through Allocations)
+
+# License
+MIT License
+This project is open for contributions and usage in personal, educational and commercial projects.
+
+# Author
+IAN MUTHIANI
+
+iwmuthiani@gmail.com
+
+### SAY HOOORAAAAYYY TO ECONOMIC GROWTH!!!!
