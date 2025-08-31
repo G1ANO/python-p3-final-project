@@ -4,9 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-sqlalchemy = "*"
-alembic = "*"
-click = "*"
+sqlalchemy = "==2.0.43"
+alembic = "==1.16.5"
+click = "==8.2.1"
 
 [dev-packages]
 

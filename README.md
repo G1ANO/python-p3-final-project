@@ -28,23 +28,27 @@ The application uses SQLAlchemy ORM with three related tables:
 - Python 3.11+
 - pip package manager
 
-# Installation and commands
+# Installation and Setup
+
+## Using Pipenv
 
 1. Clone or download the project
+   
+2. Install pipenv
 
-2. Set up virtual environment
+   pip install pipenv
 
-   python -m venv venv
+3. Install dependencies and create virtual environment
 
-3. Install dependencies
+   pipenv install
 
-   pip install sqlalchemy alembic click
+4. Activate the pipenv shell
 
-4. Initialize the database
+   pipenv shell
+
+5. Initialize the database
 
    python cli.py init
-
-
 # Basic useful commands
 
 ## Database Initialization
